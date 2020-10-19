@@ -503,12 +503,6 @@ func resourceVSphereVirtualMachineRead(d *schema.ResourceData, meta interface{})
 
 	// Read the PCI passthrough devices.
 	var pciDevs []string
-	for _, dev := range vprops.Config.Hardware.Device {
-		if pci, ok := dev.(*types.VirtualPCIPassthrough); ok {
-			devId := pci.Backing.(*types.VirtualPCIPassthroughDeviceBackingInfo).Id
-			pciDevs = append(pciDevs, devId)
-		}
-	}
 	err = d.Set("pci_device_id", pciDevs)
 	if err != nil {
 		return err
